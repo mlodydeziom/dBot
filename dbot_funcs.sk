@@ -4,17 +4,19 @@ options:
 function botLoginDiscord(argument1: text, argument2: text):
 	login to user with token "%{_argument1}%" with name "%{_argument2}%"
 	send "Zalogowano do bota o nazwie %{_argument2}% przy użyciu tokenu %nl% %{_argument1}%" to console
-# -- example; botLoginDiscord("token", "bot_name")
+	set {login:bot} to "%{_argument2}%"
+	# -- example; botLoginDiscord("token", "bot_name")
 function botLogoutDiscord(arg1: text):
 	# -- example; botLogoutDiscord("bot_name")
 	logout of bot "%{_arg1}%"
 	send "Wylogowano z bota %{_arg1}%" to console
 
-function botSendMessage(arg1: text, arg2: text, arg3: text):
-	# -- example; botSendMessage("text", "channel_id", "bot_name")
-	send message "%{arg1}%" to channel "%{arg2}%" as bot "%{arg3}%"
+
+function botSendMessage(arg1: text, arg2: text):
+	# -- example; botSendMessage("text", "channel_id")
+	send message "%{arg1}%" to channel "%{arg2}%" as bot "%{login:bot}%"
 	
-function checkSkriptVersion(arg1: text)
+function checkSkriptVersion(arg1: text):
 	# -- example; checkSkriptVersion("main skript name")
 	send "&aSprawdzam wersje skryptu..." to console 
 	set {_version} to content of file "plugins/Skript/scripts/%{_arg1}%.sk"
@@ -22,15 +24,30 @@ function checkSkriptVersion(arg1: text)
 	set {_v2} to subtext of {_version} from character ({_v}+1) to character (length of {_version})
 	set {_v3} to index of "##" in {_v2}
 	set {version} to subtext of {_version} from character ({_v}+1) to character ({_v3})
-	set {_version} to result of connect to ""
+	set {_version} to result of connect to "https://raw.githubusercontent.com/mlodydeziom/dBot/master/dBot.sk"
 	set {_v} to index of "##" in {_version}
 	set {_v2} to subtext of {_version} from character ({_v}+1) to character (length of {_version})
 	set {_v3} to index of "##" in {_v2}
 	set {version.new} to subtext of {_version} from character ({_v}+1) to character ({_v3})
 	{version} is not {version.new}:
-		download "" to "plugins/Skript/scripts/%{_arg1}%.sk
-		send "&aZostała pobrana nowa wersja skryptu" to console 
+		send "&aDostępna jest nowa wersja skryptu! Aby ją pobrać użyj 'downloadSkriptVersion('nazwa')'" to console 
 	else:
-		send "&aWersja skryptu jest aktualna" to console 
-
-	
+		send "&aWersja skryptu jest aktualna" to console
+function downloadSkriptVersion(arg1: text):
+	# -- example; downloadSkriptVersion("main skript name")
+	set {_version} to content of file "plugins/Skript/scripts/%{_arg1}%.sk"
+	set {_v} to index of "##" in {_version}
+	set {_v2} to subtext of {_version} from character ({_v}+1) to character (length of {_version})
+	set {_v3} to index of "##" in {_v2}
+	set {version} to subtext of {_version} from character ({_v}+1) to character ({_v3})
+	set {_version} to result of connect to "https://raw.githubusercontent.com/mlodydeziom/dBot/master/dBot.sk"
+	set {_v} to index of "##" in {_version}
+	set {_v2} to subtext of {_version} from character ({_v}+1) to character (length of {_version})
+	set {_v3} to index of "##" in {_v2}
+	set {version.new} to subtext of {_version} from character ({_v}+1) to character ({_v3})
+	{version} is not {version.new}:
+		send "&aPobieram nową wersje skryptu..." to console 
+		download "https://raw.githubusercontent.com/mlodydeziom/dBot/master/dBot.sk" to "plugins/Skript/scripts/%{_arg1}%.sk"
+		send "&a...Wersja została pobrana" to console 
+	else: 
+		send "&aWersja skryptu jest aktualna!" to console 
