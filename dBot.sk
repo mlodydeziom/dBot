@@ -1,1 +1,10 @@
-# version 1.0 #
+# version 2.0 # 
+
+on load: 
+	botLoginDiscord("NDQ1MjkyNDI0MTM1MzExMzc4.DfHuxQ.pAs6vSDdeSDlGV5fHPWz4V-p0QA", "dBot2")
+	checkSkriptVersion("dbot")
+# 	downloadSkriptVersion("dbot")	
+	wait 3 second
+	send message "Poprawnie załadowano bota" to channel "445291528789950474" as bot "%{login:bot}%"
+on stop:
+	botLogoutDiscord("%{login:bot}%")
