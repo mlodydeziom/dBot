@@ -1,2 +1,6 @@
 # dBot
-Bot na Discord napisany w języku skrypt - oparty o funkcje
+Bot na Discord do Minecraft napisany w języku Skript
+# Wymagane dodatki
+WildSkript
+Skript 2.2 
+Vixio 1.5
