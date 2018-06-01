@@ -1,6 +1,6 @@
-# version 2.0.1 # 
+# 2.1 #
 
-on load: 
+on skript load: 
 	botLoginDiscord("NDQ1MjkyNDI0MTM1MzExMzc4.DfHuxQ.pAs6vSDdeSDlGV5fHPWz4V-p0QA", "dBot2")
 	checkSkriptVersion("dbot")
 	downloadSkriptVersion("dbot")	
